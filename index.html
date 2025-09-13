@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+</head>
+<body style="background-color: grey; padding: 50px">
+    
+    <script>
+        function entryCheck() {
+            const taskEntry = document.getElementById("task").value;
+
+            if (taskEntry != "") {
+                const entry = document.createElement("li");
+                entry.innerHTML = "<input type = 'checkbox'/> ";
+
+                const removebutton = document.createElement("button");
+                removebutton.innerText = "Remove";
+                removebutton.onclick = taskRemove;
+                removebutton.style.marginLeft = "10px";
+
+                entry.append(taskEntry);
+                entry.append(removebutton);
+                entry.style.marginTop = "10px";
+
+                document.getElementById("taskList").appendChild(entry);
+                document.getElementById("task").value ="";
+            }
+            else {
+                window.alert("Enter a task");
+            }
+        }
+
+        function taskRemove() {
+            const removebutton = event.target;
+            const task = removebutton.parentElement;
+            task.remove();
+        }
+
+        function removeComplete() {
+            const list = document.getElementById("taskList");
+            tasks = Array.prototype.slice.call(list.childNodes), task;
+            while (task = tasks.pop()) {
+                if (task.firstChild && task.firstChild.checked) {
+                    list.removeChild(task);
+                }
+            }
+        }
+
+    </script>
+
+    <div style="background-color: skyblue; border: solid black 2px; display: flex; justify-content: center; padding: 10px; text-align: center;">
+        <input type="text" id="task" placeholder="Enter Task" style="margin-right: 20px; padding-right: 250px;">
+        <button onclick="entryCheck()">Enter Task</button><br>
+    </div>
+
+    <div style="background-color: wheat; border: solid black 2px; margin-top: 20px; text-align: center;">
+        <ul id="taskList" style="display: inline-block; list-style: none; text-align: left;">
+
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="removeComplete()" style="font-size: 1em; padding: 5px 25px 5px 25px; font-weight: bold;">Remove Completed Tasks</button><br>
+    </div>
+
+</body>
+</html>
